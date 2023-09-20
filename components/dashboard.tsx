@@ -11,7 +11,6 @@ export default async function DashBoard() {
             <Logout></Logout>
             <div>Hello {user.data.user?.email}</div>
             <TodoViewer></TodoViewer>
-            <TodoAdder></TodoAdder>
         </>
     );
 }
