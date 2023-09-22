@@ -8,6 +8,8 @@
 # testing
 /coverage
 
+site-packages
+
 # next.js
 /.next/
 /out/
