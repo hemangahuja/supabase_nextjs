@@ -46,14 +46,16 @@ export default function Login() {
     };
     return (
         <div className="w-full h-full flex-col flex">
-            <a
-                className="js-link mb-3"
-                onClick={() => setHasAccount((prev) => !prev)}
-            >
-                {hasAccount
-                    ? "Don't have an account?"
-                    : "Already have an account?"}
-            </a>
+            <div className="link-wrapper">
+                <a
+                    className="js-link mb-3"
+                    onClick={() => setHasAccount((prev) => !prev)}
+                >
+                    {hasAccount
+                        ? "Don't have an account?"
+                        : "Already have an account?"}
+                </a>
+            </div>
 
             <div className="form-group">
                 <label htmlFor="user-email">Email</label>
@@ -107,7 +109,7 @@ export default function Login() {
 
             <div className="submit-wrapper">
                 <button
-                    className="submit-btn"
+                    className="btn"
                     onClick={hasAccount ? handleSignIn : handleSignUp}
                 >
                     {hasAccount
