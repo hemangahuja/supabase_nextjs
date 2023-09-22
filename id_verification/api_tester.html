@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Upload</title>
+</head>
+
+<body>
+    <h1>Upload ID Image and Face Image</h1>
+
+    <!-- Input fields to upload ID image and Face image -->
+    <input type="file" id="idImageInput" accept="image/*" onchange="displayImage('idImage', 'idImageInput')">
+    <input type="file" id="faceImageInput" accept="image/*" onchange="displayImage('faceImage', 'faceImageInput')">
+
+    <!-- Display uploaded images -->
+    <div>
+        <h2>ID Image</h2>
+        <img id="idImage" alt="ID Image" style="max-width: 300px;">
+    </div>
+    <div>
+        <h2>Face Image</h2>
+        <img id="faceImage" alt="Face Image" style="max-width: 300px;">
+    </div>
+
+    <!-- Button to encode and send images -->
+    <button onclick="encodeAndSendImages()">Encode and Send Images</button>
+
+    <script>
+        function displayImage(imageId, inputId) {
+            const imageElement = document.getElementById(imageId);
+            const fileInput = document.getElementById(inputId);
+            const file = fileInput.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    imageElement.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            } else {
+                imageElement.src = "";
+            }
+        }
+
+        function encodeAndSendImages() {
+            const idImageElement = document.getElementById("idImage");
+            const faceImageElement = document.getElementById("faceImage");
+
+            if (!idImageElement.src || !faceImageElement.src) {
+                alert("Please upload both ID and Face images.");
+                return;
+            }
+
+            const data = {
+                id_img: idImageElement.src,
+                face_img: faceImageElement.src
+            };
+
+            fetch("/verify_id", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            })
+                .then(response => response.json())
+                .then(responseData => {
+                    // Handle the response from the server if needed
+                    alert(responseData.verified ? 'Faces match!' : 'Faces do not match.');
+                })
+                .catch(error => {
+                    console.error("Error sending images:", error);
+                    alert("Error sending images. Please try again.");
+                });
+        }
+    </script>
+</body>
+
+</html>
