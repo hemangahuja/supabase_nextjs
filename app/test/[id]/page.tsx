@@ -14,5 +14,5 @@ export default async function Proctor({ params }: { params: { id: string } }) {
 
     if (!row.data?.length) redirect("/");
     const test = await supabase.from("test").select().eq("id", params.id);
-    return <Room id={params.id}></Room>;
+    return <Room roomName={params.id} userName={userID!}></Room>;
 }
