@@ -14,10 +14,8 @@ export default function Logout() {
         router.refresh();
     };
     return (
-        <>
-            <button onClick={handleSignOut} disabled={loading}>
-                {loading ? "Signing you out.." : "Sign out"}
-            </button>
-        </>
+        <a className="js-link m-2" onClick={handleSignOut}>
+            ({loading ? "Signing you out..." : "Sign out"})
+        </a>
     );
 }

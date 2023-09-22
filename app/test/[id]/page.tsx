@@ -1,7 +1,7 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-
+import Room from "@/components/room";
 export default async function Proctor({ params }: { params: { id: string } }) {
     const supabase = createServerComponentClient({ cookies });
     const userID = (await supabase.auth.getSession()).data.session?.user.id;
@@ -13,5 +13,5 @@ export default async function Proctor({ params }: { params: { id: string } }) {
 
     if (!row.data?.length) redirect("/");
     const test = await supabase.from("test").select().eq("id", params.id);
-    return <>{JSON.stringify(test)}</>;
+    return <Room id={params.id}></Room>;
 }
