@@ -10,7 +10,7 @@ export default async function Proctor({ params }: { params: { id: string } }) {
         .select()
         .eq("test_id", params.id)
         .eq("user_id", userID);
-    console.log(row);
+
     if (!row.data?.length) redirect("/");
     const test = await supabase.from("test").select().eq("id", params.id);
     return <>{JSON.stringify(test)}</>;

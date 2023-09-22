@@ -1,25 +1,43 @@
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
+"use client";
+import StudentAction from "@/actions/student-register";
+import { useRef, useState } from "react";
 
-export default async function Student({ data }: { data: any }) {
-    const supabase = createServerComponentClient({ cookies });
-    const tests = await supabase.from("test").select();
-    const userID = (await supabase.auth.getSession()).data.session?.user.id;
-    const registeredTests = await supabase
-        .from("user_test")
-        .select("id")
-        .eq("user_id", userID);
-    const set = new Set(registeredTests.data);
-    console.log(tests.data);
+export default function Student({
+    tests,
+    registered,
+}: {
+    tests: any;
+    registered: Set<any>;
+}) {
+    console.log(registered);
+    const [testID, setTestID] = useState("");
+    const formRef = useRef<HTMLFormElement>(null);
     return (
-        <>
-            You are a student
-            {tests.data?.map((test) => (
-                <div key={test.id}>
-                    {JSON.stringify(test)} registered ={" "}
-                    {set.has(test.id) ? "yes" : "false"}
-                </div>
+        <form
+            ref={formRef}
+            action={async (formData: FormData) => {
+                formData.set("test", testID);
+                await StudentAction(formData);
+            }}
+            className="flex flex-col gap-5"
+        >
+            {tests.map((test: any) => (
+                <button
+                    type="button"
+                    onClick={(e) => {
+                        if (registered.has(test.id)) {
+                            alert("Already registered");
+                            return;
+                        }
+                        setTestID(test.id);
+                        formRef.current?.submit();
+                    }}
+                    key={test.id}
+                >
+                    {test.description}{" "}
+                    {registered.has(test.id) && "Already Registered"}
+                </button>
             ))}
-        </>
+        </form>
     );
 }
