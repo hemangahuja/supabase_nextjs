@@ -2,17 +2,25 @@ import face_recognition
 import cv2
 import fastapi
 import base64
+import numpy as np
 from typing import List
+from pydantic import BaseModel
 
 app = fastapi.FastAPI()
 THRESHOLD = 0.7
 
-@app.post("/verify_id")
-async def verify_id(id_img: str, face_img: str):
-    from_id = extract_face_from_image(readb64(id_img))
-    from_live = extract_face_from_image(readb64(face_img))
+class VerifyRequest(BaseModel):
+    id_img: str
+    face_img: str
 
-    if (not from_id or not from_live):
+@app.post("/verify_id")
+async def verify_id(req: VerifyRequest):
+    from_id = extract_face_from_image(readb64(req.id_img))
+    from_live = extract_face_from_image(readb64(req.face_img))
+
+    print(from_id, from_live)
+
+    if (from_id is None or from_live is None):
         return {
             "error": "Bad Image"
         }
@@ -23,9 +31,8 @@ async def verify_id(id_img: str, face_img: str):
 
 
 def extract_face_from_image(student_img):
-    id_image = cv2.imread(student_img)
     # grayscale for face detection
-    gray_image = cv2.cvtColor(id_image, cv2.COLOR_BGR2GRAY)
+    gray_image = cv2.cvtColor(student_img, cv2.COLOR_BGR2GRAY)
 
     face_cascade = cv2.CascadeClassifier(
         cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
@@ -36,7 +43,7 @@ def extract_face_from_image(student_img):
     # Extract face
     if len(faces) > 0:
         x, y, w, h = faces[0]
-        detected_face = id_image[y:y+h, x:x+w]
+        detected_face = student_img[y:y+h, x:x+w]
     
     return detected_face
 
