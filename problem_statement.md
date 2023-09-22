@@ -1,0 +1,34 @@
+The problem at hand is to develop an efficient and reliable Proctored Exam Tool
+that automates the proctoring process and enables institutions, organizations,
+and testing agencies to administer secure and scalable remote examinations. The
+Proctored Exam Tool should aim to address the following challenges:
+
+1. Remote Monitoring: The software should allow proctors to remotely observe the
+   exam-takers via webcam and screen sharing to ensure that no unauthorized
+   assistance is provided during the exam.
+2. Identity Verification: Implement a robust identity verification mechanism to
+   ensure that the exam-taker is the intended praticipants, preventing
+   impersonation and fraud.
+3. Cheating Prevention: Incorporate advanced monitoring features, such as
+   real-time AI-based facial recognition, eye tracking, and suspicious behaviour
+   detection, to identify and flag potential instances of cheating.
+4. Secure Environment: Ensure that the exam environment remains secure by
+   disabling access to unauthorized resources like other applications, websites,
+   or external devices during the examination.
+5. Data Privacy: The tool should adhere to stringent data privacy and security
+   standards to protect sensitive information of both exam-takers and
+   organisers.
+6. User-friendly Interface: Design an intuitive and user-friendly interface for
+   both proctors and exam-takers to facilitate easy navigation and seamless exam
+   administration.
+7. Scalability: The software should be capable of handling a large number of
+   concurrent exam-takers without compromising on performance or security.
+8. Compatibility: Ensure compatibility with different operating systems,
+   browsers, and devices to accommodate diverse user preferences and
+   accessibility needs.
+9. Integration: The Proctored Exam Tool should be able to integrate with various
+   application and assessment platforms commonly used in institutions,
+   organizations, and testing agencies.
+10. Reporting and Analytics: Provide comprehensive exam reports and analytics to
+    assist institutions in evaluating exam performance, identifying trends, and
+    making data-driven decisions.
