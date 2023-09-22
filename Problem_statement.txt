@@ -10,3 +10,16 @@ The Proctored Exam Tool should aim to address the following challenges:
     8. Compatibility: Ensure compatibility with different operating systems, browsers, and devices to accommodate diverse user preferences and accessibility needs. 
     9. Integration: The Proctored Exam Tool should be able to integrate with various application and assessment platforms commonly used in institutions, organizations, and testing agencies. 
     10. Reporting and Analytics: Provide comprehensive exam reports and analytics to assist institutions in evaluating exam performance, identifying trends, and making data-driven decisions.
+
+
+    Solution iter 1:
+    1) jitsi 
+    2) yolo
+    3) yolo
+    4) frontend
+    5) fck that
+    6) okay bro
+    7) cloudd i lostt
+    8) web app
+    9) 
+    10) db export
