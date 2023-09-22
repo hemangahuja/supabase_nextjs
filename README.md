@@ -1,48 +1,38 @@
-# Supabase Starter
+# CodeSieve
 
-This starter configures Supabase Auth to use cookies, making the user's session available throughout the entire Next.js app - Client Components, Server Components, Route Handlers, Server Actions and Middleware.
+## Problem Statement
 
-## Deploy your own
+The problem at hand is to develop an efficient and reliable Proctored Exam Tool
+that automates the proctoring process and enables institutions, organizations,
+and testing agencies to administer secure and scalable remote examinations. The
+Proctored Exam Tool should aim to address the following challenges:
 
-The Vercel deployment will guide you through creating a Supabase account and project. After installation of the Supabase integration, all relevant environment variables will be set up so that the project is usable immediately after deployment 🚀
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-supabase&project-name=nextjs-with-supabase&repository-name=nextjs-with-supabase&integration-ids=oac_jUduyjQgOyzev1fjrW83NYOv)
-
-## How to use
-
-1. Create a [new Supabase project](https://database.new)
-1. Run `npx create-next-app -e with-supabase` to create a Next.js app using the Supabase Starter template
-1. Use `cd` to change into the app's directory
-1. Run `npm install` to install dependencies
-1. Rename `.env.local.example` to `.env.local` and update the values for `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` from [your Supabase project's API settings](https://app.supabase.com/project/_/settings/api)
-1. Run `npm run dev` to start the local development server
-
-> Check out [the docs for Local Development](https://supabase.com/docs/guides/getting-started/local-development) to also run Supabase locally.
-
-### Create a Supabase client
-
-Check out the [`/app/_examples`](./app/_examples/) folder for an example of creating a Supabase client in:
-
-- [Client Components](./app/_examples/client-component/page.tsx)
-- [Server Components](./app/_examples/server-component/page.tsx)
-- [Route Handlers](./app/_examples/route-handler/route.ts)
-- [Server Actions](./app/_examples/server-action/page.tsx)
-
-### Create `todo` table and seed with data (optional)
-
-Navigate to [your project's SQL Editor](https://app.supabase.com/project/_/sql), click `New query`, paste the contents of the [init.sql](./supabase/migrations/20230618024722_init.sql) file and click `RUN`.
-
-This will create a basic `todos` table, enable Row Level Security (RLS), and write RLS policies enabling `select` and `insert` actions for `authenticated` users.
-
-To seed your `todos` table with some dummy data, run the contents of the [seed.sql](./supabase/seed.sql) file.
-
-## Feedback and issues
-
-Please file feedback and issues over on the [Supabase GitHub org](https://github.com/supabase/supabase/issues/new/choose).
-
-## More Supabase examples
-
-- [Next.js Subscription Payments Starter](https://github.com/vercel/nextjs-subscription-payments)
-- [Cookie-based Auth and the Next.js 13 App Router (free course)](https://youtube.com/playlist?list=PL5S4mPUpp4OtMhpnp93EFSo42iQ40XjbF)
-- [Supabase Auth and the Next.js App Router](https://github.com/supabase/supabase/tree/master/examples/auth/nextjs)
-- [Next.js Auth Helpers Docs](https://supabase.com/docs/guides/auth/auth-helpers/nextjs)
+1. Remote Monitoring: The software should allow proctors to remotely observe the
+   exam-takers via webcam and screen sharing to ensure that no unauthorized
+   assistance is provided during the exam.
+2. Identity Verification: Implement a robust identity verification mechanism to
+   ensure that the exam-taker is the intended praticipants, preventing
+   impersonation and fraud.
+3. Cheating Prevention: Incorporate advanced monitoring features, such as
+   real-time AI-based facial recognition, eye tracking, and suspicious behaviour
+   detection, to identify and flag potential instances of cheating.
+4. Secure Environment: Ensure that the exam environment remains secure by
+   disabling access to unauthorized resources like other applications, websites,
+   or external devices during the examination.
+5. Data Privacy: The tool should adhere to stringent data privacy and security
+   standards to protect sensitive information of both exam-takers and
+   organisers.
+6. User-friendly Interface: Design an intuitive and user-friendly interface for
+   both proctors and exam-takers to facilitate easy navigation and seamless exam
+   administration.
+7. Scalability: The software should be capable of handling a large number of
+   concurrent exam-takers without compromising on performance or security.
+8. Compatibility: Ensure compatibility with different operating systems,
+   browsers, and devices to accommodate diverse user preferences and
+   accessibility needs.
+9. Integration: The Proctored Exam Tool should be able to integrate with various
+   application and assessment platforms commonly used in institutions,
+   organizations, and testing agencies.
+10. Reporting and Analytics: Provide comprehensive exam reports and analytics to
+    assist institutions in evaluating exam performance, identifying trends, and
+    making data-driven decisions.
