@@ -8,9 +8,9 @@ export default async function DashBoard() {
     const user = await supabase.auth.getUser();
     return (
         <>
-            <Logout></Logout>
+            <Logout />
             <div>Hello {user.data.user?.email}</div>
-            <TodoViewer></TodoViewer>
+            <TodoViewer />
         </>
     );
 }

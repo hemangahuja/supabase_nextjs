@@ -1,7 +1,6 @@
 "use client";
 
 import ProctorAction from "@/actions/proctor-register";
-import { useRef, useState } from "react";
 
 export default function Proctor({
     tests,
@@ -10,31 +9,21 @@ export default function Proctor({
     tests: any;
     registered: Set<any>;
 }) {
-    const [testID, setTestID] = useState("");
-    const [password, setPassword] = useState("");
-    const formRef = useRef<HTMLFormElement>(null);
     return (
-        <form
-            ref={formRef}
-            action={async (formData: FormData) => {
-                formData.set("test", testID);
-                formData.set("pass", password);
-                console.log(formData);
-                await ProctorAction(formData);
-            }}
-            className="flex flex-col gap-5"
-        >
+        <form className="flex flex-col gap-5">
             {tests.map((test: any) => (
                 <button
                     type="button"
-                    onClick={(e) => {
+                    onClick={async (e) => {
                         if (registered.has(test.id)) {
                             alert("Already registered");
                             return;
                         }
-                        setPassword(prompt("Enter Password") || "");
-                        setTestID(test.id);
-                        formRef.current?.submit();
+                        const password = prompt("Enter Password") || "";
+                        const formData = new FormData();
+                        formData.set("test", test.id);
+                        formData.set("pass", password);
+                        await ProctorAction(formData);
                     }}
                     key={test.id}
                 >

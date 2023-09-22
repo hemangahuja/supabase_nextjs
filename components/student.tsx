@@ -1,6 +1,5 @@
 "use client";
 import StudentAction from "@/actions/student-register";
-import { useRef, useState } from "react";
 
 export default function Student({
     tests,
@@ -9,28 +8,24 @@ export default function Student({
     tests: any;
     registered: Set<any>;
 }) {
-    console.log(registered);
-    const [testID, setTestID] = useState("");
-    const formRef = useRef<HTMLFormElement>(null);
+    const submit = async (id: any) => {
+        const formData = new FormData();
+        formData.set("test", id);
+        console.log(formData);
+        await StudentAction(formData);
+    };
+
     return (
-        <form
-            ref={formRef}
-            action={async (formData: FormData) => {
-                formData.set("test", testID);
-                await StudentAction(formData);
-            }}
-            className="flex flex-col gap-5"
-        >
+        <form className="flex flex-col gap-5">
             {tests.map((test: any) => (
                 <button
                     type="button"
-                    onClick={(e) => {
+                    onClick={async () => {
                         if (registered.has(test.id)) {
                             alert("Already registered");
                             return;
                         }
-                        setTestID(test.id);
-                        formRef.current?.submit();
+                        await submit(test.id);
                     }}
                     key={test.id}
                 >

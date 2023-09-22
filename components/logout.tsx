@@ -16,7 +16,7 @@ export default function Logout() {
     return (
         <>
             <button onClick={handleSignOut} disabled={loading}>
-                {loading ? "signing out.." : "signout"}
+                {loading ? "Signing you out.." : "Sign out"}
             </button>
         </>
     );

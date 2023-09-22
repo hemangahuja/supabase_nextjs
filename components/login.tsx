@@ -45,46 +45,80 @@ export default function Login() {
         await handleSignIn();
     };
     return (
-        <>
-            {error && error}
-            <input
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="email"
-            ></input>
-            <input
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="password"
-            ></input>
-            {!hasAccount && (
-                <>
-                    <input
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        placeholder="name"
-                    ></input>
-                    <input
-                        value={category}
-                        onChange={(e) => setCategory(e.target.value)}
-                        placeholder="category"
-                    ></input>
-                </>
-            )}
-            <button onClick={hasAccount ? handleSignIn : handleSignUp}>
-                {hasAccount
-                    ? loading
-                        ? "logging in.."
-                        : "Login"
-                    : loading
-                    ? "Creating account.."
-                    : "SignUp"}
-            </button>
-            <button onClick={() => setHasAccount((prev) => !prev)}>
+        <div className="w-full h-full flex-col flex">
+            <a
+                className="js-link mb-3"
+                onClick={() => setHasAccount((prev) => !prev)}
+            >
                 {hasAccount
                     ? "Don't have an account?"
                     : "Already have an account?"}
-            </button>
-        </>
+            </a>
+
+            <div className="form-group">
+                <label htmlFor="user-email">Email</label>
+                <input
+                    id="user-email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Your e-mail address"
+                    type="email"
+                    required
+                />
+            </div>
+            <div className="form-group">
+                <label htmlFor="user-password">Password</label>
+                <input
+                    id="user-password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="Enter password..."
+                    type="password"
+                    required
+                />
+            </div>
+            {!hasAccount && (
+                <>
+                    <div className="form-group">
+                        <label htmlFor="user-name">Name</label>
+                        <input
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            placeholder="Name"
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="user-category">Category</label>
+                        <select
+                            value={category}
+                            onChange={(e) => setCategory(e.target.value)}
+                        >
+                            <option disabled selected>
+                                Select a category...
+                            </option>
+                            <option>Proctor</option>
+                            <option>Student</option>
+                        </select>
+                    </div>
+                </>
+            )}
+
+            {error ? <div className="error">{error}</div> : ""}
+
+            <div className="submit-wrapper">
+                <button
+                    className="submit-btn"
+                    onClick={hasAccount ? handleSignIn : handleSignUp}
+                >
+                    {hasAccount
+                        ? loading
+                            ? "Logging in.."
+                            : "Login"
+                        : loading
+                        ? "Creating account.."
+                        : "Sign up"}
+                </button>
+            </div>
+        </div>
     );
 }
