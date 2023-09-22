@@ -2,7 +2,7 @@
 import { experimental_useFormStatus as useFormStatus } from "react-dom";
 import SubmitTextAction from "@/actions/submit-text";
 import { useRef } from "react";
-export default async function TodoAdder() {
+export default function TodoAdder() {
     const formRef = useRef<HTMLFormElement>(null);
     return (
         <form

@@ -9,6 +9,8 @@ export default function Login() {
     const [hasAccount, setHasAccount] = useState(true);
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
+    const [name, setName] = useState("");
+    const [category, setCategory] = useState("student");
     const supabase = createClientComponentClient();
     const router = useRouter();
     const handleSignIn = async () => {
@@ -24,15 +26,22 @@ export default function Login() {
     };
     const handleSignUp = async () => {
         setLoading(true);
-        const { error } = await supabase.auth.signUp({
+        const { data, error } = await supabase.auth.signUp({
             email,
             password,
         });
+
         if (error) {
             setError(error.message);
             setLoading(false);
             return;
         }
+        await supabase.from("users").insert({
+            id: data.session?.user.id,
+            name,
+            category,
+            email,
+        });
         await handleSignIn();
     };
     return (
@@ -48,13 +57,27 @@ export default function Login() {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="password"
             ></input>
+            {!hasAccount && (
+                <>
+                    <input
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        placeholder="name"
+                    ></input>
+                    <input
+                        value={category}
+                        onChange={(e) => setCategory(e.target.value)}
+                        placeholder="category"
+                    ></input>
+                </>
+            )}
             <button onClick={hasAccount ? handleSignIn : handleSignUp}>
                 {hasAccount
                     ? loading
                         ? "logging in.."
                         : "Login"
                     : loading
-                    ? "signing in.."
+                    ? "Creating account.."
                     : "SignUp"}
             </button>
             <button onClick={() => setHasAccount((prev) => !prev)}>
