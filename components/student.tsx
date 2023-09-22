@@ -1,53 +1,63 @@
 "use client";
 import StudentAction from "@/actions/student-register";
-
+import { Container,Text,Button,Flex } from "@chakra-ui/react";
+import Nav from "./Navbar";
 export default function Student({
     tests,
-    registered,
+    registeredids,
 }: {
     tests: any;
-    registered: Set<any>;
+    registeredids: Set<any>;
 }) {
+
     const submit = async (id: any) => {
         const formData = new FormData();
         formData.set("test", id);
         console.log(formData);
         await StudentAction(formData);
     };
+    function TestCard({ id, description, start, end, registered }: { id: any, description: any, start: any, end: any, registered: any }) {
+        const startD=new Date(start);
 
+        return(<>
+            <Container width="4xl" height="150px"  bg="#f35151" mb={6} borderRadius={"10px"} padding={"20px"}>
+                <Flex justifyContent={'space-between'} mb={5}>
+                    <Text fontSize="2xl" as="b" textAlign={"left"}>{description.toUpperCase()}</Text>
+                    <Text fontSize="2xl" as="b" textAlign={"right"}>{startD.getHours()}:{startD.getMinutes()}</Text>
+                </Flex>
+                <Flex alignItems={"center"}>
+                {registered ? (
+                    <div className="">
+                        Already Registered
+                    </div>
+                ) : (
+                    <Button
+                        onClick={async () => {
+                            if (registered) {
+                                alert("Already registered");
+                                return;
+                            }
+                            await submit(id);
+                        }}
+                        key={id}
+                        size={"md"}
+                    >
+                        Register
+                    </Button>
+                )}
+                </Flex>
+            </Container>
+
+        </>)
+    }
     return (
-        <form className="flex flex-col gap-5">
-            {tests.map((test: any) => (
-                <div className="test-item">
-                    <div className="test-item-title text-lg text-center">
-                        {test.description}
-                    </div>
-
-                    <div className="badges"></div>
-
-                    <div className="test-actions">
-                        {registered.has(test.id) ? (
-                            <div className="">
-                                You are registered for this test.
-                            </div>
-                        ) : (
-                            <button
-                                onClick={async () => {
-                                    if (registered.has(test.id)) {
-                                        alert("Already registered");
-                                        return;
-                                    }
-                                    await submit(test.id);
-                                }}
-                                key={test.id}
-                                className="btn text-sm"
-                            >
-                                Register
-                            </button>
-                        )}
-                    </div>
-                </div>
-            ))}
-        </form>
+        <>
+            <Nav/>
+            <>
+                {tests.map((test: any) => (
+                    <TestCard id={test.id} description={test.description} start={test.start_time} end={test.end_time} registered={registeredids.has(test.id)}></TestCard>
+                ))}
+            </>
+        </>
     );
 }
