@@ -1,6 +1,7 @@
 import face_recognition
 import cv2
 import fastapi
+import base64
 
 app = fastapi.FastAPI()
 
@@ -10,9 +11,9 @@ async def verify_id():
     return True
 
 
-def extract_face_from_image():
-    id_image = cv2.imread("student_id.jpg")
+def extract_face_from_image(student_img):
 
+    id_image = cv2.imread(student_img)
     # grayscale for face detection
     gray_image = cv2.cvtColor(id_image, cv2.COLOR_BGR2GRAY)
 
@@ -26,42 +27,37 @@ def extract_face_from_image():
         x, y, w, h = faces[0]
         detected_face = id_image[y:y+h, x:x+w]
 
-import base64
-
 def readb64(uri):
    encoded_data = uri.split(',')[1]
    nparr = np.fromstring(base64.b64decode(encoded_data), np.uint8)
    img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
    return img
 
-def extract_face_from_video():
+def extract_face_from_video(uri):
     frame = readb64(uri);
+    id_image = pi
+    # grayscale for face detection
+    gray_image = cv2.cvtColor(id_image, cv2.COLOR_BGR2GRAY)
 
-    while True:
-        
-        id_image = frame
-        # grayscale for face detection
-        gray_image = cv2.cvtColor(id_image, cv2.COLOR_BGR2GRAY)
+    face_cascade = cv2.CascadeClassifier(
+        cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
+    faces = face_cascade.detectMultiScale(
+        gray_image, scaleFactor=1.1, minNeighbors=5, minSize=(30, 30))
 
-        face_cascade = cv2.CascadeClassifier(
-            cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
-        faces = face_cascade.detectMultiScale(
-            gray_image, scaleFactor=1.1, minNeighbors=5, minSize=(30, 30))
+    if len(faces) > 0:
+        x, y, w, h = faces[0]
+        detected_face = id_image[y:y+h, x:x+w]
 
-        if len(faces) > 0:
-            x, y, w, h = faces[0]
-            detected_face = id_image[y:y+h, x:x+w]
+    cv2.imshow("Video Feed", frame)
 
-        cv2.imshow("Video Feed", frame)
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
 
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
-
-    cap.release()
-    cv2.destroyAllWindows()
+cap.release()
+cv2.destroyAllWindows()
 
 
-def compare_both_id_and_video():
+def compare_both_id_and_video(detected_face,frame):
     # Load the known face encoding (extracted from the student ID)
     known_face_encoding = face_recognition.face_encodings(
         detected_face)[0]  # Assuming one face is detected
