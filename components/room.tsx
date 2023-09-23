@@ -2,10 +2,12 @@
 import { useRouter } from "next/navigation";
 import Pusher, { Members, PresenceChannel } from "pusher-js";
 import { useEffect, useRef, useState } from "react";
+import Nav from "./Navbar";
 
 interface Props {
     userName: string;
     roomName: string;
+    role: "student" | "proctor";
 }
 
 const ICE_SERVERS = {
@@ -23,7 +25,7 @@ const ICE_SERVERS = {
     ],
 };
 
-export default function Room({ userName, roomName }: Props) {
+export default function Room({ userName, roomName, role }: Props) {
     const [micActive, setMicActive] = useState(true);
     const [cameraActive, setCameraActive] = useState(true);
 
@@ -286,6 +288,7 @@ export default function Room({ userName, roomName }: Props) {
 
     return (
         <div>
+            <Nav></Nav>
             <div>
                 <div>
                     <video autoPlay ref={userVideo} muted />
@@ -301,9 +304,7 @@ export default function Room({ userName, roomName }: Props) {
                         </button>
                     </div>
                 </div>
-                <div>
-                    <video autoPlay ref={partnerVideo} />
-                </div>
+                <div>{<video autoPlay ref={partnerVideo} />}</div>
             </div>
         </div>
     );
